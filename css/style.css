@@ -70,6 +70,7 @@ body{
     opacity: 0;
     pointer-events: none;
 }
+.site-nav .sidebar-toggle,
 .sidebar-header .sidebar-toggle{
     /*background-color: pink;*/
     height: 40px;
@@ -92,6 +93,7 @@ body{
     width: 50px;
     transform: translateX(-2px);
 }
+.site-nav .sidebar-toggle:hover,
 .sidebar-header .sidebar-toggle:hover{
     background: var(--color-hover-secondary);
 }
@@ -124,6 +126,10 @@ body{
     background: var(--color-bg-secondary);
     transition:0.4s ease;
 }
+.sidebar.collapsed .sidebar-content .search-form:hover{
+    cursor: pointer;
+}
+.sidebar.collapsed .sidebar-content .search-form:hover,
 .sidebar-content .search-form:focus-within{
     background: var(--color-hover-secondary);
 }
@@ -168,10 +174,13 @@ body{
     pointer-events: none;
 
 }
+.active{
+    background: var(--color-hover-primary);
+    color:#fff;
+}
 .menu-list .menu-link:is(:hover , .active){
     background: var(--color-hover-primary);
     color:#fff;
-
 }
 .sidebar .sidebar-footer{
     padding:20px 18px;
@@ -235,4 +244,76 @@ body.dark-theme .theme-toggle .theme-toggle-track{
 body.dark-theme .theme-toggle-track .theme-toggle-indicator{
     transform:translateX(24px);
 
+}
+
+.site-nav{
+    position: sticky;
+    top: 0;
+    padding: 15px 20px;
+    background: var(--color-bg-primary);
+    border-bottom: 1px solid var(--color-border-hr);
+    display: none;
+}
+.site-nav .sidebar-toggle{
+    position: unset;
+}
+
+
+.container {
+    display: flex;
+}
+
+.container .main-content {
+    flex: 1;
+    padding: 30px;
+    color: var(--color-text-primary);
+}
+
+.main-content .page-title {
+    font-size: 1.5rem;
+    font-weight: 600;
+    margin-bottom: 20px;
+}
+
+.main-content .card {
+    border-radius: 8px;
+    padding: 20px;
+    background-color: var(--color-bg-sidebar);
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+}
+@media (max-width: 768px){
+    body::before {
+        content: "";
+        position: fixed;
+        inset: 0;
+        z-index: 10;
+        opacity: 0;
+        pointer-events: none;
+        background: rgba(0, 0, 0, 0.6);
+        transition: 0.4s ease;
+    }
+
+    body:has(.sidebar:not(.collapsed))::before {
+        opacity: 1;
+        pointer-events: auto;
+    }
+
+    body:has(.sidebar:not(.collapsed)) {
+        overflow: hidden;
+    }
+    .site-nav{
+        display: block;
+    }
+    .sidebar{
+        position: fixed;
+        left:0;
+        z-index: 20;
+        width: 270px;
+        height: 100%;
+        transition: left 0.4s ease;
+    }
+    .sidebar.collapsed{
+        left:-270px;
+        width: 270px;
+    }
 }
